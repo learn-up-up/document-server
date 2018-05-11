@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -33,6 +34,13 @@ public class DocumentController {
 
 	@Autowired
 	private DiscoveryClient discoveryClient;
+
+	@Autowired
+	private RestTemplate restTemplate;
+	public String getUser(){
+		return this.restTemplate.getForObject("http://localhost:8081/login",String.class);
+	}
+
 
 	@GetMapping("/read/{tittle}")
 	public String getDocument(@PathVariable("tittle") String tittle){
