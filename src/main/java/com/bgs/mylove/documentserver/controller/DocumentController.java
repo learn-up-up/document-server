@@ -1,4 +1,5 @@
 package com.bgs.mylove.documentserver.controller;
+import com.bgs.mylove.documentserver.feign.UserServerFeign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,18 @@ public class DocumentController {
 
 	@Autowired
 	private RestTemplate restTemplate;
+
+	@Autowired
+	private UserServerFeign userServerFeign;
+
+	@GetMapping("/hello")
 	public String getUser(){
-		return this.restTemplate.getForObject("http://localhost:8081/login",String.class);
+		return this.restTemplate.getForObject("http://user-server/user/login",String.class);
+	}
+
+	@GetMapping("/feign/hello")
+	public String getUserFeign(){
+		return userServerFeign.login();
 	}
 
 
