@@ -1,9 +1,9 @@
 server:
-  port: 8083
+  port: 8083 #8084 8083
 
 spring:
   application:
-    name: document-user
+    name: document-server
   datasource:
     url: jdbc:mysql://127.0.0.7:3306/mylove_document?useUnicode=true&characterEncoding=UTF-8
     username: root
@@ -29,3 +29,9 @@ eureka:
 info:
   app:
     name: mylove.document-server
+
+#load balancer
+#user-server:
+#  ribbon:
+#    eureka:
+#      enabled: true

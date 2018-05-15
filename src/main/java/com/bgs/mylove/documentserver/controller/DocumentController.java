@@ -1,5 +1,6 @@
 package com.bgs.mylove.documentserver.controller;
 import com.bgs.mylove.documentserver.feign.UserServerFeign;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +49,14 @@ public class DocumentController {
 	}
 
 	@GetMapping("/feign/hello")
+	@HystrixCommand(fallbackMethod = "hellofallback")
 	public String getUserFeign(){
 		return userServerFeign.login();
 	}
 
+	public String hellofallback(){
+		return "erro";
+	}
 
 	@GetMapping("/read/{tittle}")
 	public String getDocument(@PathVariable("tittle") String tittle){
